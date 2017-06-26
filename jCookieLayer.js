@@ -57,10 +57,19 @@ function jCookieLayer(options){
            }
     }
     
-    //remove layer and set cookie
-    this.onClose= function(){
+    //remove layer and listeners
+    this.remove = function(){
         this.layer.remove();
-         this.setCookie(this.settings.cookieName, 1, this.settings.cookieDays);
+        
+        if(this.settings.hideOnScroll > 0){
+            $(document).off("scroll.jcl");
+        }
+    }
+    
+    //click event fpr closing laer
+    this.onClose= function(){
+        this.remove();
+        this.setCookie(this.settings.cookieName, 1, this.settings.cookieDays);
     }
     
     //add layer
